@@ -7,9 +7,10 @@ function ServiceFilterPage () {
     const [services, setServices] = useState([]);
 
     useEffect( () => {
-        axios.get("http://localhost:8080/api/services")
+        axios.get("http://localhost:8080/api/services/all-service")
             .then(response => {
                 setServices(response.data);
+                console.log(response.data);
             })
             .catch(error => {
                 console.error('Error fetching data:', error)
@@ -30,19 +31,19 @@ function ServiceFilterPage () {
                             <tr>
                                 <th>Szolgáltatás azonosító</th>
                                 <th>Szolgáltatás név</th>
-                                <th>Szolgáltatás hossz azonosító</th>
+                                <th>Szolgáltatás hossz</th>
                                 <th>Szolgáltatás ára</th>
-                                <th>Szolgáltató azonosító</th>
+                                <th>Szolgáltató típus</th>
                             </tr>
                         </thead>
                         <tbody>
                         {services.map(service => (
                             <tr className="rows" key={"service.serviceId"}>
-                                <td>{service.serviceId}</td>
-                                <td>{service.serviceName}</td>
-                                <td>{service.serviceLengthId}</td>
-                                <td>{service.servicePrice}</td>
-                                <td>{service.serviceProviderId}</td>
+                                <td>{service[0]}</td>
+                                <td>{service[1]}</td>
+                                <td>{service[2]}</td>
+                                <td>{service[3]}</td>
+                                <td>{service[4]}</td>
                             </tr>
                         ))}
                         </tbody>

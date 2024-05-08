@@ -29,8 +29,8 @@ function BookingFilterPage() {
                             <thead>
                             <tr>
                                 <th>Foglalás azonosító</th>
-                                <th>Felhasználó azonosító</th>
-                                <th>Szolgáltatás azonosító</th>
+                                <th>Felhasználónév</th>
+                                <th>Szolgáltatás</th>
                                 <th>Dátum</th>
                                 <th>Idő</th>
                                 <th>Megjegyzés</th>
@@ -39,12 +39,12 @@ function BookingFilterPage() {
                             <tbody>
                             {bookings.map(booking => (
                                 <tr className="rows" key={"booking.bookingId"}>
-                                    <td>{booking.bookingId}</td>
-                                    <td>{booking.userId}</td>
-                                    <td>{booking.serviceId}</td>
-                                    <td>{booking.date}</td>
-                                    <td>{booking.time}</td>
-                                    <td>{booking.comment}</td>
+                                    <td>{booking[0]}</td>
+                                    <td>{booking[1]}</td>
+                                    <td>{booking[2]}</td>
+                                    <td>{booking[3]}</td>
+                                    <td>{booking[4]}</td>
+                                    <td>{booking[5]}</td>
                                 </tr>
                             ))}
                             </tbody>

@@ -14,6 +14,7 @@ function ServiceProviderFilterPage() {
             .catch(error => {
                 console.error('Error fetching data:', error)
             });
+
     }, []);
 
     return (
@@ -29,15 +30,15 @@ function ServiceProviderFilterPage() {
                                 <tr>
                                     <th>Szolgáltató azonosító</th>
                                     <th>Szolgáltató név</th>
-                                    <th>Felhasználó azonosító</th>
+                                    <th>Felhasználó név</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {serviceProviders.map(serviceProvider => (
                                     <tr className="rows" key={serviceProvider.serviceProviderId}>
-                                        <td>{serviceProvider.serviceProviderId}</td>
-                                        <td>{serviceProvider.serviceProviderName}</td>
-                                        <td>{serviceProvider.userId}</td>
+                                        <td>{serviceProvider[0]}</td>
+                                        <td>{serviceProvider[1]}</td>
+                                        <td>{serviceProvider[2]}</td>
                                     </tr>
                                 ))}
                             </tbody>
