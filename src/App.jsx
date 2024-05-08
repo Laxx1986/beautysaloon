@@ -11,7 +11,12 @@ import AboutPage from "./Frontend/Pages/AboutPage";
 import ContactPage from "./Frontend/Pages/ContactPage";
 import AdminPage from "./Frontend/Pages/AdminPage";
 import RegistrationPage from "./Frontend/Pages/RegistrationPage";
-import UserFilterPage from "./Frontend/Pages/UserFilterPage";
+import UserFilterPage from "./Frontend/Pages/AdminFilters/UserFilterPage";
+import ServiceProviderFilterPage from "./Frontend/Pages/AdminFilters/ServiceProviderFilterPage";
+import ServiceLengthFilterPage from "./Frontend/Pages/AdminFilters/ServiceLengthFilterPage";
+import ServiceFilterPage from "./Frontend/Pages/AdminFilters/ServiceFilterPage";
+import OpeningTimeFilterPage from "./Frontend/Pages/AdminFilters/OpeningTimeFilterPage";
+import BookingFilterPage from "./Frontend/Pages/AdminFilters/BookingFilterPage";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -46,6 +51,11 @@ function App() {
                             <Route path="/admin" element={<AdminPage />} />
                             <Route path="/registration" element={<RegistrationPage />} />
                             <Route path="/userfilter" element={<UserFilterPage />} />
+                            <Route path="/serviceproviderfilter" element={<ServiceProviderFilterPage />} />
+                            <Route path="/servicelengthfilter" element={<ServiceLengthFilterPage />} />
+                            <Route path="/servicefilter" element={<ServiceFilterPage />} />
+                            <Route path="/openingtimefilter" element={<OpeningTimeFilterPage />} />
+                            <Route path="/bookingfilter" element={<BookingFilterPage />} />
                         </Routes>
                     </div>
                 </div>
