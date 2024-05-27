@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Menu() {
+function Menu({ login, userRights  }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid justify-content-center">
@@ -22,10 +22,17 @@ function Menu() {
                             <Link className="nav-link" to="/contact">Contact us</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/admin">Admin</Link>
+                            {(userRights === 1 || userRights === 2) && (
+                                <li><Link className="nav-link" to="/admin">Admin</Link></li>
+                            )}
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/registration">Regisztráció</Link>
+                            {(userRights === 3) && (
+                                <li><Link className="nav-link" to="/bookingspage">Bookings</Link></li>
+                            )}
+                        </li>
+                        <li className="nav-item">
+                            {!login && <li><Link className="nav-link" to="/registration">Register</Link></li>}
                         </li>
                     </ul>
                 </div>
