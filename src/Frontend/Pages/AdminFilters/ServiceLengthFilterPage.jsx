@@ -7,7 +7,12 @@ function ServiceLengthFilterPage(){
     const [serviceLengths, setServiceLengths] = useState([]);
 
     useEffect( () => {
-        axios.get('http://localhost:8080/api/serviceLengths')
+        axios.get('http://localhost:8080/api/serviceLengths', {
+            auth: {
+                username: 'admin', // Felhasználónév
+                password: 'almafa' // Jelszó
+            }
+        })
             .then(response => {
                 setServiceLengths(response.data);
                 })

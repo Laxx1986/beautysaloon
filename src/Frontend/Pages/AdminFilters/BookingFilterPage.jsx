@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom";
-import React, {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "./Tables.css";
 import axios from "axios";
 
@@ -7,14 +7,19 @@ function BookingFilterPage() {
     const [bookings, setBooking] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/bookings/all-booking")
+        axios.get("http://localhost:8080/api/bookings/all-booking", {
+            auth: {
+                username: 'admin', // Felhasználónév
+                password: 'almafa' // Jelszó
+            }
+        })
             .then(response => {
                 setBooking(response.data)
             })
             .catch(error => {
                 console.error('Error fetching data:', error)
             });
-    })
+    }, []);
 
     return (
         <>
@@ -38,13 +43,13 @@ function BookingFilterPage() {
                             </thead>
                             <tbody>
                             {bookings.map(booking => (
-                                <tr className="rows" key={"booking.bookingId"}>
-                                    <td>{booking[0]}</td>
-                                    <td>{booking[1]}</td>
-                                    <td>{booking[2]}</td>
-                                    <td>{booking[3]}</td>
-                                    <td>{booking[4]}</td>
-                                    <td>{booking[5]}</td>
+                                <tr className="rows" key={booking.bookingId}>
+                                    <td>{booking.bookingId}</td>
+                                    <td>{booking.username}</td>
+                                    <td>{booking.service}</td>
+                                    <td>{booking.date}</td>
+                                    <td>{booking.time}</td>
+                                    <td>{booking.comment}</td>
                                 </tr>
                             ))}
                             </tbody>
@@ -60,8 +65,7 @@ function BookingFilterPage() {
                 </div>
             </div>
         </>
-    )
-
+    );
 }
 
 export default BookingFilterPage;

@@ -7,7 +7,12 @@ function ServiceFilterPage () {
     const [services, setServices] = useState([]);
 
     useEffect( () => {
-        axios.get("http://localhost:8080/api/services/all-service")
+        axios.get("http://localhost:8080/api/services/all-service", {
+            auth: {
+                username: 'admin', // Felhasználónév
+                password: 'almafa' // Jelszó
+            }
+        })
             .then(response => {
                 setServices(response.data);
                 console.log(response.data);
@@ -31,8 +36,8 @@ function ServiceFilterPage () {
                             <tr>
                                 <th>Szolgáltatás azonosító</th>
                                 <th>Szolgáltatás név</th>
-                                <th>Szolgáltatás hossz</th>
                                 <th>Szolgáltatás ára</th>
+                                <th>Szolgáltatás hossz</th>
                                 <th>Szolgáltató típus</th>
                             </tr>
                         </thead>
@@ -41,8 +46,8 @@ function ServiceFilterPage () {
                             <tr className="rows" key={"service.serviceId"}>
                                 <td>{service[0]}</td>
                                 <td>{service[1]}</td>
-                                <td>{service[2]}</td>
-                                <td>{service[3]}</td>
+                                <td>{service[2] + " Ft"}</td>
+                                <td>{service[3] + " perc"}</td>
                                 <td>{service[4]}</td>
                             </tr>
                         ))}

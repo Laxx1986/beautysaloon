@@ -7,7 +7,12 @@ function ServiceProviderFilterPage() {
     const [serviceProviders, setServiceProviders] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/serviceProviders/all-serviceprovider')
+        axios.get('http://localhost:8080/api/serviceProviders/all-serviceprovider', {
+            auth: {
+                username: 'admin', // Felhasználónév
+                password: 'almafa' // Jelszó
+            }
+        })
             .then(response => {
                 setServiceProviders(response.data);
             })

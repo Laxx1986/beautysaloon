@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function RegistrationPage() {
     const [formData, setFormData] = useState({
@@ -10,24 +11,35 @@ function RegistrationPage() {
         repassword: ''
     });
 
-    // Állapot frissítése input mező változásakor
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // Űrlap elküldése
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Itt lehet feldolgozni az adatokat, például elküldeni egy API-nak
-        console.log(formData);
+        console.log('FormData:', formData);
+        try {
+            const response = await axios.post('http://localhost:8080/api/users/register', formData, {
+                auth: {
+                    username: 'admin', // Felhasználónév
+                    password: 'almafa' // Jelszó
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-sm-10 col-md-8 col-lg-6">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} method="POST">
                         <label>
                             Név: <br />
                             <input
@@ -42,8 +54,8 @@ function RegistrationPage() {
                             Felhasználónév: <br />
                             <input
                                 type="text"
-                                name="name"
-                                value={formData.username}
+                                name="userName"
+                                value={formData.userName}
                                 onChange={handleInputChange}
                             />
                         </label>
@@ -62,8 +74,8 @@ function RegistrationPage() {
                             Telefonszám: <br />
                             <input
                                 type="text"
-                                name="name"
-                                value={formData.phone}
+                                name="phoneNumber"
+                                value={formData.phoneNumber}
                                 onChange={handleInputChange}
                             />
                         </label>
@@ -81,8 +93,8 @@ function RegistrationPage() {
                         <label>
                             Jelszó újra: <br />
                             <input
-                                type="text"
-                                name="name"
+                                type="password"
+                                name="repassword"
                                 value={formData.repassword}
                                 onChange={handleInputChange}
                             />

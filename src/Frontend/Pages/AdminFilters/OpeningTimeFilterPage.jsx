@@ -7,7 +7,12 @@ function OpeningTimeFilterPage() {
     const [openingTimes, setOpeningTimes] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/openingTimes")
+        axios.get("http://localhost:8080/api/openingTimes", {
+            auth: {
+                username: 'admin', // Felhasználónév
+                password: 'almafa' // Jelszó
+            }
+        })
             .then(response => {
                 setOpeningTimes(response.data)
             })

@@ -17,12 +17,16 @@ import ServiceLengthFilterPage from "./Frontend/Pages/AdminFilters/ServiceLength
 import ServiceFilterPage from "./Frontend/Pages/AdminFilters/ServiceFilterPage";
 import OpeningTimeFilterPage from "./Frontend/Pages/AdminFilters/OpeningTimeFilterPage";
 import BookingFilterPage from "./Frontend/Pages/AdminFilters/BookingFilterPage";
+import Calendar from "./Frontend/Pages/MyCalendar";
+
 
 function App() {
     const [count, setCount] = useState(0);
     let login = false;
 
     return (
+
+
         <Router basename="/">
             <>
                 <div className="row" id="needbackground">
@@ -55,7 +59,7 @@ function App() {
                             <Route path="/servicelengthfilter" element={<ServiceLengthFilterPage />} />
                             <Route path="/servicefilter" element={<ServiceFilterPage />} />
                             <Route path="/openingtimefilter" element={<OpeningTimeFilterPage />} />
-                            <Route path="/bookingfilter" element={<BookingFilterPage />} />
+                            <Route path="/bookingfilter" element={<Calendar key="booking-calendar"/>} />
                         </Routes>
                     </div>
                 </div>

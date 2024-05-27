@@ -8,7 +8,12 @@ function UserFilterPage() {
 
     useEffect(() => {
         // Fetch adatok lekérése a backendtől
-        axios.get('http://localhost:8080/api/users/all-users')
+        axios.get('http://localhost:8080/api/users/all-users', {
+            auth: {
+                username: 'admin', // Felhasználónév
+                password: 'almafa' // Jelszó
+            }
+        })
             .then(response => {
                 setUsers(response.data); // A kapott adatok beállítása a state-be
             })
