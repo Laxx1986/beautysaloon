@@ -32,20 +32,20 @@ function ServiceProviderFilterPage() {
                     <div className="table-responsive">
                         <table className="table table-striped table-hover custom-table">
                             <thead>
-                                <tr>
-                                    <th>Szolgáltató azonosító</th>
-                                    <th>Szolgáltató név</th>
-                                    <th>Felhasználó név</th>
-                                </tr>
+                            <tr>
+                                <th>Szolgáltató azonosító</th>
+                                <th>Szolgáltató név</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {serviceProviders.map(serviceProvider => (
-                                    <tr className="rows" key={serviceProvider.serviceProviderId}>
-                                        <td>{serviceProvider[0]}</td>
-                                        <td>{serviceProvider[1]}</td>
-                                        <td>{serviceProvider[2]}</td>
-                                    </tr>
-                                ))}
+                            {serviceProviders.map(serviceProvider => (
+                                <tr className="rows" key={serviceProvider.serviceProviderId}>
+                                    <td>{serviceProvider.serviceProviderId}</td>
+                                    <td>{serviceProvider.serviceProviderName}</td>
+                                    {/* Nem biztos, hogy a felhasználó nevet is meg kell jeleníteni, de ha igen, akkor meg kell adni az objektum tulajdonságát */}
+                                    {/* <td>{serviceProvider.serviceProviderUserName}</td> */}
+                                </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>

@@ -46,6 +46,7 @@ function MyCalendar() {
 
     const eventStyleGetter = (event) => {
         let backgroundColor = 'blue';
+        let color = 'white';
 
         switch (event.serviceProviderName) {
             case 'Mukormos':
@@ -56,6 +57,7 @@ function MyCalendar() {
                 break;
             case 'Fodrasz2':
                 backgroundColor = 'yellow';
+                color = 'black';
                 break;
             case 'Kozmetikus':
                 backgroundColor = 'purple';
@@ -67,9 +69,9 @@ function MyCalendar() {
         return {
             style: {
                 backgroundColor,
-                color: 'peach',
+                color: color,
                 borderRadius: '2px',
-                border: 'none'
+                border: '2px'
             }
         };
     };

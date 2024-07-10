@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Menu from './Frontend/Menu';
 import HomePage from "./Frontend/Pages/HomePage";
@@ -19,13 +19,29 @@ import OpeningTimeFilterPage from "./Frontend/Pages/AdminFilters/OpeningTimeFilt
 import BookingFilterPage from "./Frontend/Pages/AdminFilters/BookingFilterPage";
 import Calendar from "./Frontend/Pages/MyCalendar";
 import LoginPage from './Frontend/Pages/LoginPage';
-import BookingsPage from "./Frontend/Pages/BookingsPage";
+import MyCalendar from "./Frontend/Pages/MyCalendar";
 
 function App() {
+
     const [login, setLogin] = useState(false);
     const [userName, setUserName] = useState('');
     const [userRights, setUserRights] = useState(null);
     const navigate = useNavigate();
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+        const storedUserName = localStorage.getItem('userName');
+        const storedUserRights = localStorage.getItem('userRights');
+
+        if (storedIsLoggedIn === 'true' && storedUserName && storedUserRights) {
+            setIsLoggedIn(true);
+            setUserName(storedUserName);
+            setUserRights(JSON.parse(storedUserRights));  // Parse the JSON string to an object
+        }
+    }, [location]);
 
     const handleLogout = async () => {
         try {
@@ -40,6 +56,14 @@ function App() {
         } catch (error) {
             console.error("Logout failed", error);
         }
+
+        setIsLoggedIn(false);
+        setUserName('');
+        setUserRights('');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userRights');
+
     };
 
     return (
@@ -72,8 +96,8 @@ function App() {
                         <Route path="/pricelist" element={<PriceListPage />} />
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/contact" element={<ContactPage />} />
-                        {(userRights === 1 || userRights === 2) && <Route path="/admin" element={<AdminPage />} />}
-                        {(userRights === 3) && <Route path="/Bookings" element={<BookingsPage />} />}
+                        {(userRights?.userRightsName == 'Recepcios' || userRights?.userRightsName == 'Szolgaltato') && <Route path="/admin" element={<AdminPage />} />}
+                        {(userRights?.userRightsName == 'User') && <Route path="/Bookings" element={<MyCalendar />} />}
                         {!login && <Route path="/registration" element={<RegistrationPage />} />}
                         <Route path="/userfilter" element={<UserFilterPage />} />
                         <Route path="/serviceproviderfilter" element={<ServiceProviderFilterPage />} />

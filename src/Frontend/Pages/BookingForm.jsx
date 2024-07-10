@@ -17,16 +17,23 @@ function BookingForm() {
                 setServiceProviders(response.data);
             })
             .catch(error => console.error('Error fetching service providers:', error));
-        axios.get('http://localhost:8080/api/services/all-service')
-            .then(response => {
-                console.log('Services:', response.data); // Log the data
-                setServices(response.data);
-            })
-            .catch(error => console.error('Error fetching services:', error));
     }, []);
+
+    useEffect(() => {
+        if (selectedServiceProvider) {
+            axios.get(`http://localhost:8080/api/bookings/service-provider/${selectedServiceProvider}`)
+                .then(response => {
+                    console.log('Services for ServiceProvider:', response.data); // Log the data
+                    setServices(response.data);
+                })
+                .catch(error => console.error('Error fetching services:', error));
+        }
+    }, [selectedServiceProvider]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        console.log('Selected Service Provider before submit:', selectedServiceProvider);
 
         if (!selectedServiceProvider || !selectedService || !date || !time || !comment) {
             alert('Please fill out all fields');
@@ -35,12 +42,15 @@ function BookingForm() {
 
         const bookingRequest = {
             userId: getUserId(),
-            serviceProviderId: selectedServiceProvider,
+            serviceProviderID: selectedServiceProvider,
             serviceId: selectedService,
             date,
             time,
             comment
         };
+
+        console.log('Selected Service Provider:', selectedServiceProvider);
+        console.log('Booking Request:', bookingRequest);
 
         axios.post('http://localhost:8080/api/bookings/create', bookingRequest)
             .then(response => alert(response.data))
@@ -48,7 +58,7 @@ function BookingForm() {
     };
 
     const getUserId = () => {
-        return 1; // Placeholder
+        return localStorage.getItem('userId');
     };
 
     return (

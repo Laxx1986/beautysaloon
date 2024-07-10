@@ -1,12 +1,12 @@
-import {Link} from "react-router-dom";
-import React, {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "./Tables.css";
 import axios from "axios";
 
-function ServiceFilterPage () {
+function ServiceFilterPage() {
     const [services, setServices] = useState([]);
 
-    useEffect( () => {
+    useEffect(() => {
         axios.get("http://localhost:8080/api/services/all-service", {
             auth: {
                 username: 'admin', // Felhasználónév
@@ -28,11 +28,11 @@ function ServiceFilterPage () {
                 <h1 className="titleoflist">Szolgáltatások listája</h1>
             </div>
 
-        <div className="container col-12">
-            <div className="row">
-                <div className="table-responsive">
-                    <table className="table table-striped table-hover custom-table">
-                        <thead>
+            <div className="container col-12">
+                <div className="row">
+                    <div className="table-responsive">
+                        <table className="table table-striped table-hover custom-table">
+                            <thead>
                             <tr>
                                 <th>Szolgáltatás azonosító</th>
                                 <th>Szolgáltatás név</th>
@@ -40,33 +40,31 @@ function ServiceFilterPage () {
                                 <th>Szolgáltatás hossz</th>
                                 <th>Szolgáltató típus</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                        {services.map(service => (
-                            <tr className="rows" key={"service.serviceId"}>
-                                <td>{service[0]}</td>
-                                <td>{service[1]}</td>
-                                <td>{service[2] + " Ft"}</td>
-                                <td>{service[3] + " perc"}</td>
-                                <td>{service[4]}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {services.map(service => (
+                                <tr className="rows" key={service.serviceId}>
+                                    <td>{service.serviceId}</td>
+                                    <td>{service.serviceName}</td>
+                                    <td>{service.servicePrice + " Ft"}</td>
+                                    <td>{service.serviceLength + " perc"}</td>
+                                    <td>{service.serviceProvider}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Link to="/admin">
+                            <button>Vissza</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col">
-                    <Link to="/admin">
-                        <button>Vissza</button>
-                    </Link>
-                </div>
-            </div>
-        </div>
-
         </>
     )
-
 }
 
 export default ServiceFilterPage;

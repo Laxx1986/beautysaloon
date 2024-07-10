@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
-function Menu({ login, userRights  }) {
+function Menu({ login, userRights }) {
+    useEffect(() => {
+    }, [userRights]);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid justify-content-center">
@@ -21,19 +25,21 @@ function Menu({ login, userRights  }) {
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact us</Link>
                         </li>
-                        <li className="nav-item">
-                            {(userRights === 1 || userRights === 2) && (
-                                <li><Link className="nav-link" to="/admin">Admin</Link></li>
-                            )}
-                        </li>
-                        <li className="nav-item">
-                            {(userRights === 3) && (
-                                <li><Link className="nav-link" to="/bookingspage">Bookings</Link></li>
-                            )}
-                        </li>
-                        <li className="nav-item">
-                            {!login && <li><Link className="nav-link" to="/registration">Register</Link></li>}
-                        </li>
+                        {userRights && (userRights.userRightsName === 'Recepcios' || userRights.userRightsName === 'Szolgaltato') && (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/admin">Admin</Link>
+                            </li>
+                        )}
+                        {userRights && userRights.userRightsName === 'User' && (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/Bookings">Bookings</Link>
+                            </li>
+                        )}
+                        {!login && (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/registration">Register</Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>

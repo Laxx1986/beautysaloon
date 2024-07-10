@@ -24,7 +24,7 @@ function OpeningTimeFilterPage() {
     return (
         <>
             <div className="col-12">
-                <h1 className="titleoflist">Szolgáltatások listája</h1>
+                <h1 className="titleoflist">Nyitvatartás</h1>
             </div>
 
             <div className="container col-12">
